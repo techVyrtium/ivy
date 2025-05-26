@@ -1,18 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { WelcomeCallAction } from "./WelcomeCallAction";
 
 export const FloatingChatButton = ({ onClick, isOpen }) => {
   return (
     <div className="fixed bottom-6 right-6 flex items-center gap-3 z-50">
-      {!isOpen && (
-        <div className="bg-[#FFFFF8] px-4 py-2 rounded-lg shadow-lg text-[#2F383F] font-medium animate-fade-in">
-          Hola 👋, soy Ivy, tu asistente virtual. ¿En qué puedo ayudarte hoy? 😊
-        </div>
-      )}
+      {!isOpen && <WelcomeCallAction />}
       <button
         onClick={onClick}
-        className={`w-14 h-14 rounded-full bg-gradient-to-r from-[#FF5143] to-[#FF675F] text-[#FFFFF8] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 hover:rotate-3 cursor-pointer ${
-          isOpen ? "scale-0" : "scale-100"
-        }`}
+        className="w-14 h-14 rounded-full bg-gradient-to-r from-[#FF5143] to-[#FF675F] text-[#FFFFF8] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 hover:rotate-3 cursor-pointer"
         aria-label="Abrir chat"
       >
         {isOpen ? (

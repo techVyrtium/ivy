@@ -121,8 +121,9 @@ export default function ChatPage() {
         isOpen={isChatOpen} 
       />
       
-      <div className={`fixed bottom-24 right-6 w-full max-w-md h-[85vh] flex flex-col bg-white rounded-lg shadow-xl overflow-hidden transition-all duration-300 transform ${
-        isChatOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+      <div className={`fixed bottom-24 right-6 w-full max-w-md h-[80vh] flex flex-col bg-white rounded-lg 
+      shadow-xl overflow-hidden transition-all duration-300 transform ${
+        isChatOpen ? 'translate-y-0 opacity-100 ' : 'translate-y-full opacity-0 mt-2'
       }`}>
         <ChatHeader onClose={() => setIsChatOpen(false)} />
         <div className="flex-1 overflow-y-auto" ref={chatRef}>
