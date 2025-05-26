@@ -157,7 +157,7 @@ export const ChatMessages = ({
                 msg.role === "user" ? "text-blue-600" : "text-green-600"
               }`}
             >
-              {msg.role === "user" ? "You" : "Ivy Assistant"}
+              {msg.role === "user" ? "You" : "Ivy Asistente"}
             </div>
 
             <div
@@ -204,7 +204,7 @@ export const ChatMessages = ({
                         </svg>
                       </button>
                       <span className="text-xs text-blue-600">
-                        Playing audio...
+                        Reproduciendo audio...
                       </span>
                     </>
                   ) : isLoadingAudio ? (
