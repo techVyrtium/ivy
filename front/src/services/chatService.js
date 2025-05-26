@@ -18,7 +18,7 @@ export async function sendChatMessage({ userMessage, threadId }) {
 export async function getConversation(conversationId) {
   try {
     const res = await fetch(
-      `${API_BASE_URL}/api/v1/chat-bot/conversation/${conversationId}`
+      `${API_BASE_URL}/conversation/${conversationId}`
     );
 
     if (!res.ok) {
