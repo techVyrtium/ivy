@@ -1,4 +1,4 @@
-import { TypingIndicator } from "./TypingIndicator";
+import { TypingIndicator } from "@/components/TypingIndicator";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 
@@ -161,7 +161,7 @@ export const ChatMessages = ({
             </div>
 
             <div
-              className={`p-4 my-1 rounded-lg whitespace-pre-wrap inline-block max-w-[80%] shadow-sm ${
+              className={`p-4 my-1 rounded-lg whitespace-pre-wrap inline-block max-w-[80%] shadow-sm break-words overflow-x-auto ${
                 msg.role === "user"
                   ? "bg-blue-100 rounded-tl-lg rounded-tr-lg rounded-bl-lg mr-2 border-t border-r border-blue-200"
                   : "bg-gray-100 rounded-tr-lg rounded-tl-lg rounded-br-lg ml-2 border-t border-l border-gray-200"
@@ -262,7 +262,7 @@ export const ChatMessages = ({
             </div>
             {msg.timestamp && (
               <small className="text-xs text-gray-500 mt-1 px-3">
-                {new Date(msg.timestamp).toISOString().slice(11, 16)}
+                {new Date(msg.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
               </small>
             )}
           </div>

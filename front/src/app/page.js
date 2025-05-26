@@ -1,12 +1,14 @@
 "use client";
 import { useRef, useEffect, useState } from "react";
-import { useChat } from "../hooks/useChat";
-import { ChatMessages } from "../components/ChatMessages";
-import { ChatInput } from "../components/ChatInput";
-import { ChatHeader } from "../components/ChatHeader";
-import { ProcessingStatus } from "../components/ProcessingStatus";
-import { CallModal } from "../components/CallModal";
+import { useChat } from "@/hooks/useChat";
+import { ChatMessages } from "@/components/ChatMessages";
+import { ChatInput } from "@/components/ChatInput";
+import { ChatHeader } from "@/components/ChatHeader";
+import { ProcessingStatus } from "@/components/ProcessingStatus";
+import { CallModal } from "@/components/CallModal";
 import { PolicyCheckBox } from "@/components/PolicyCheckBox";
+import { FloatingChatButton } from "@/components/FloatingChatButton";
+import { getConversation } from "@/services/chatService";
 
 export default function ChatPage() {
   const {
@@ -28,6 +30,7 @@ export default function ChatPage() {
   const [isCallModalOpen, setIsCallModalOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isAcceptedPolicy, setIsAcceptedPrivacy] = useState(true);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Client-side mounting detection
   useEffect(() => {
@@ -40,45 +43,10 @@ export default function ChatPage() {
 
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          `http://localhost:5000/api/v1/chat-bot/conversation/0`
-        );
-
-        if (!res.ok) {
-          console.warn(`API returned status: ${res.status}`);
-          return;
-        }
-
-        const data = await res.json();
-
-        // Validate data structure before updating state
-        if (data && data.data && Array.isArray(data.data.messages)) {
-          // Ensure each message has the required properties
-          const safeMessages = data.data.messages.map((msg) => {
-            if (msg?.sender) {
-              if (msg.sender == "client") {
-                msg.role = "user";
-              } else {
-                msg.role = "assistant";
-              }
-            }
-
-            return {
-              content: msg.message || "",
-              // Preserve other properties
-              ...msg,
-            };
-          });
-
-          setMessages([...messages, ...safeMessages]);
-        } else {
-          console.warn("Invalid data format received:", data);
-          // Initialize with empty array if no valid messages
-          setMessages([...messages]);
-        }
+        const safeMessages = await getConversation(0);
+        setMessages([...messages, ...safeMessages]);
       } catch (error) {
         console.error("Error fetching conversation:", error);
-        // Initialize with empty array on error
         setMessages([...messages]);
       }
     };
@@ -132,10 +100,31 @@ export default function ChatPage() {
     }
   });
 
+  // Efecto para escuchar la tecla Escape
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.key === 'Escape' && isChatOpen) {
+        setIsChatOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscapeKey);
+    return () => {
+      window.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isChatOpen]);
+
   return (
-    <div className="min-h-screen bg-gray-200 flex justify-center items-center p-4 font-sans">
-      <div className="w-full max-w-2xl h-[85vh] flex flex-col bg-white rounded-lg shadow-md overflow-hidden relative">
-        <ChatHeader />
+    <>
+      <FloatingChatButton 
+        onClick={() => setIsChatOpen(!isChatOpen)} 
+        isOpen={isChatOpen} 
+      />
+      
+      <div className={`fixed bottom-24 right-6 w-full max-w-md h-[85vh] flex flex-col bg-white rounded-lg shadow-xl overflow-hidden transition-all duration-300 transform ${
+        isChatOpen ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+      }`}>
+        <ChatHeader onClose={() => setIsChatOpen(false)} />
         <div className="flex-1 overflow-y-auto" ref={chatRef}>
           <ChatMessages
             messages={messages}
@@ -170,6 +159,6 @@ export default function ChatPage() {
           />
         )}
       </div>
-    </div>
+    </>
   );
 }

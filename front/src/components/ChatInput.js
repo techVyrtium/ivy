@@ -1,5 +1,5 @@
-import { SendButton } from './SendButton';
-import useSpeechToText from '../hooks/useSpeechToText';
+import { SendButton } from '@/components/SendButton';
+import useSpeechToText from '@/hooks/useSpeechToText';
 
 export const ChatInput = ({ inputValue, setInputValue, onSendMessage, isProcessing, pauseAudio, onOpenCallModal }) => {
   const { isListening, startListening: baseStartListening, stopListening, tempText } = useSpeechToText({

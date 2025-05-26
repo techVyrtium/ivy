@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { speakWithElevenLabs } from "../utils/voz";
+import { speakWithElevenLabs } from "@/utils/voz";
 
 export function useAudioAssistant() {
   const audioRef = useRef(null);

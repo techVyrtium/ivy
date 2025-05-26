@@ -1,5 +1,5 @@
-import { useChat } from "src/hooks/useChat";
-import ClientForm from "./ClientForm"; // Ajusta la ruta según tu estructura
+import { useChat } from "@/hooks/useChat";
+import ClientForm from "@/components/ClientForm";
 
 export default function ChatPage() {
   const {

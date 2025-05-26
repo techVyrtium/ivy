@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect } from "react";
-import { CLOSING_REGEX } from "../utils/closingRegex";
-import { useAudioAssistant } from "./useAudioAssistant";
-import { sendChatMessage } from "../services/chatService";
-import { getRoundedTimestamp } from "../utils/chatUtils";
+import { CLOSING_REGEX } from "@/utils/closingRegex";
+import { useAudioAssistant } from "@/hooks/useAudioAssistant";
+import { sendChatMessage } from "@/services/chatService";
+import { getRoundedTimestamp } from "@/utils/chatUtils";
 
 export const useChat = () => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi, 👋 I'm Ivy, your virtual assistant. How may I help you today?",
+      content: "Hola 👋, soy Ivy, tu asistente virtual. ¿En qué puedo ayudarte hoy? 😊",
       timestamp: getRoundedTimestamp(),
     },
   ]);
