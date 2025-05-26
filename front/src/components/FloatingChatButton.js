@@ -4,13 +4,13 @@ export const FloatingChatButton = ({ onClick, isOpen }) => {
   return (
     <div className="fixed bottom-6 right-6 flex items-center gap-3 z-50">
       {!isOpen && (
-        <div className="bg-white px-4 py-2 rounded-lg shadow-lg text-gray-700 font-medium animate-fade-in">
+        <div className="bg-[#FFFFF8] px-4 py-2 rounded-lg shadow-lg text-[#2F383F] font-medium animate-fade-in">
           Hola 👋, soy Ivy, tu asistente virtual. ¿En qué puedo ayudarte hoy? 😊
         </div>
       )}
       <button
         onClick={onClick}
-        className={`w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center ${
+        className={`w-14 h-14 rounded-full bg-gradient-to-r from-[#FF5143] to-[#FF675F] text-[#FFFFF8] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110 hover:rotate-3 cursor-pointer ${
           isOpen ? "scale-0" : "scale-100"
         }`}
         aria-label="Abrir chat"

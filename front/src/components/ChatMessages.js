@@ -22,7 +22,7 @@ function renderAssistantMessage(msg) {
             {...props}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 font-semibold underline hover:text-blue-800 transition-colors"
+            className="text-[#FF5143] font-semibold underline hover:text-[#FF675F] transition-colors"
           >
             🔗 haz clic aquí
           </a>
@@ -154,7 +154,7 @@ export const ChatMessages = ({
           >
             <div
               className={`px-3 text-xs font-medium ${
-                msg.role === "user" ? "text-blue-600" : "text-green-600"
+                msg.role === "user" ? "text-[#FF5143]" : "text-green-600"
               }`}
             >
               {msg.role === "user" ? "You" : "Ivy Asistente"}
@@ -163,7 +163,7 @@ export const ChatMessages = ({
             <div
               className={`p-4 my-1 rounded-lg whitespace-pre-wrap inline-block max-w-[80%] shadow-sm break-words overflow-x-auto ${
                 msg.role === "user"
-                  ? "bg-blue-100 rounded-tl-lg rounded-tr-lg rounded-bl-lg mr-2 border-t border-r border-blue-200"
+                  ? "bg-[#FF7E7B]/10 rounded-tl-lg rounded-tr-lg rounded-bl-lg mr-2 border-t border-r border-[#FF7E7B]/20"
                   : "bg-gray-100 rounded-tr-lg rounded-tl-lg rounded-br-lg ml-2 border-t border-l border-gray-200"
               }`}
             >
@@ -178,13 +178,13 @@ export const ChatMessages = ({
                     <>
                       {/* Icono de onda animada */}
                       <span className="flex items-center">
-                        <span className="h-4 w-1 bg-blue-500 mr-0.5 animate-wave1" />
-                        <span className="h-3 w-1 bg-blue-400 mr-0.5 animate-wave2" />
-                        <span className="h-2 w-1 bg-blue-300 animate-wave3" />
+                        <span className="h-4 w-1 bg-[#FF5143] mr-0.5 animate-wave1" />
+                        <span className="h-3 w-1 bg-[#FF675F] mr-0.5 animate-wave2" />
+                        <span className="h-2 w-1 bg-[#FF7E7B] animate-wave3" />
                       </span>
                       <button
                         onClick={pauseAudio}
-                        className="w-6 h-6 flex items-center justify-center rounded hover:bg-blue-100 transition-colors"
+                        className="w-6 h-6 flex items-center justify-center rounded hover:bg-[#FF7E7B]/10 transition-colors"
                         title="Pausar audio"
                       >
                         {/* Icono de pausa */}
@@ -197,13 +197,13 @@ export const ChatMessages = ({
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-blue-600"
+                          className="text-[#FF5143]"
                         >
                           <rect x="6" y="4" width="4" height="16" rx="1" />
                           <rect x="14" y="4" width="4" height="16" rx="1" />
                         </svg>
                       </button>
-                      <span className="text-xs text-blue-600">
+                      <span className="text-xs text-[#FF5143]">
                         Reproduciendo audio...
                       </span>
                     </>
@@ -211,7 +211,7 @@ export const ChatMessages = ({
                     // Preloader/spinner
                     <span className="w-6 h-6 flex items-center justify-center">
                       <svg
-                        className="animate-spin h-5 w-5 text-blue-600"
+                        className="animate-spin h-5 w-5 text-[#FF5143]"
                         viewBox="0 0 24 24"
                       >
                         <circle
@@ -233,7 +233,7 @@ export const ChatMessages = ({
                   ) : (
                     <button
                       onClick={() => handlePlayAudio(msg.content, i)}
-                      className="w-6 h-6 flex items-center justify-center rounded hover:bg-blue-100 transition-colors"
+                      className="w-6 h-6 flex items-center justify-center rounded hover:bg-[#FF7E7B]/10 transition-colors"
                       title="Play audio"
                     >
                       {/* Icono de play */}
@@ -246,7 +246,7 @@ export const ChatMessages = ({
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="text-blue-600"
+                        className="text-[#FF5143]"
                       >
                         <polygon points="5 3 19 12 5 21 5 3" />
                       </svg>

@@ -130,7 +130,7 @@ export function CallModal({ isOpen, onClose }) {
   }
 
   return (
-    <div className="modal-overlay fixed inset-0 z-50 flex flex-col items-center justify-center bg-white">
+    <div className="modal-overlay fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#FFFFF8]">
       <button
         onClick={() => {
           stopTranscription();
@@ -156,8 +156,9 @@ export function CallModal({ isOpen, onClose }) {
           >
             <defs>
               <radialGradient id="grad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#e0f2fe" />
-                <stop offset="100%" stopColor="#38bdf8" />
+                <stop offset="0%" stopColor="#FF5143" />
+                <stop offset="50%" stopColor="#FF675F" />
+                <stop offset="100%" stopColor="#FF7E7B" />
               </radialGradient>
             </defs>
             <circle cx="110" cy="110" r="100" fill="url(#grad)" />

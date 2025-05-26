@@ -18,7 +18,7 @@ export const ChatInput = ({ inputValue, setInputValue, onSendMessage, isProcessi
         type="button"
         onClick={isListening ? stopListening : startListening}
         className={`w-9 h-9 flex items-center justify-center rounded-full transition-colors
-          ${isListening ? 'bg-red-500 text-white animate-pulse shadow-lg' : 'bg-blue-500 text-white hover:bg-blue-600'}
+          ${isListening ? 'bg-green-500 text-[#FFFFF8] animate-pulse shadow-lg' : 'bg-[#64D2D9] text-[#FFFFF8] hover:bg-[#90D6D6]'}
           ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
         disabled={isProcessing}
         aria-label={isListening ? 'Detener micrófono' : 'Hablar'}
@@ -33,9 +33,9 @@ export const ChatInput = ({ inputValue, setInputValue, onSendMessage, isProcessi
         type="button"
         onClick={onOpenCallModal}
         className={`w-9 h-9 flex items-center justify-center rounded-full transition-colors
-          bg-green-500 text-white hover:bg-green-600
+          ${isListening ? 'bg-[#72777A] text-[#FFFFF8]' : 'bg-green-500 text-[#FFFFF8] hover:bg-green-600'}
           ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
-        disabled={isProcessing}
+        disabled={isProcessing || isListening}
         aria-label="Iniciar llamada"
         title="Iniciar llamada"
       >
@@ -46,10 +46,10 @@ export const ChatInput = ({ inputValue, setInputValue, onSendMessage, isProcessi
 
       <textarea
         placeholder={isListening ? "Escuchando..." : "Escribe tu mensaje..."}
-        className={`flex-1 min-h-[48px] max-h-40 p-3 text-base bg-white text-black border
-          ${isListening ? 'border-red-500 ring-2 ring-red-300' : 'border-gray-300'}
-          rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500
-          disabled:bg-gray-100 disabled:cursor-not-allowed resize-none`}
+        className={`flex-1 min-h-[48px] max-h-40 p-3 text-base bg-[#FFFFF8] text-[#2F383F] border
+          ${isListening ? 'border-[#FF5143] ring-2 ring-[#FF7E7B]' : 'border-[#BAD3D2]'}
+          rounded-lg focus:outline-none focus:ring-1 focus:ring-[#64D2D9] focus:border-[#64D2D9]
+          disabled:bg-[#D7E2E1] disabled:cursor-not-allowed resize-none`}
         value={isListening && tempText ? (inputValue ? inputValue + ' ' + tempText : tempText) : inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={(e) => {
