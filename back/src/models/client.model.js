@@ -6,11 +6,19 @@ const clientSchema = new mongoose.Schema(
     registrationDate: { type: Date, default: Date.now() },
     name: { type: String },
     company: { type: String },
-    phone: { type: String },
+    phoneNumber: { type: String },
     email: { type: String },
     location: { type: String }, // "{{location}}", ("countryCity")
     personType: { type: String, enum: ["natural", "legal"] },
     drive_url: { type: String },
+
+    cus_code: { type: String },
+    code_details: {
+      country: { type: String },
+      industry: { type: String },
+      amount_size: { type: String },
+    },
+
     deviceInfo: {
       userIp: { type: String },
       browser: { type: String },

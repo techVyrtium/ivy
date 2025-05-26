@@ -35,7 +35,7 @@ export const createClientThroughN8N = catchAsync(async (req, res, next) => {
   const { mongoDBUpdateData } = req.body || {};
 
   // let client = await Client.findOne({ fingerprint });
-  // console.log(req.body);
+  console.log(req.body);
 
   // data.fingerprint = fingerprint;
   // data.deviceInfo = deviceShortInfo;

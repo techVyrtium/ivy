@@ -1,0 +1,8 @@
+[
+  { "name": "B", "code": "01", "min": 0, "max": 500 },
+  { "name": "BB", "code": "02", "min": 501, "max": 1499 },
+  { "name": "BBB", "code": "03", "min": 1500, "max": 2999 },
+  { "name": "A", "code": "04", "min": 3000, "max": 5999 },
+  { "name": "AA", "code": "05", "min": 6000, "max": 9999 },
+  { "name": "AAA", "code": "06", "min": 10000, "max": 2147483647 }
+]

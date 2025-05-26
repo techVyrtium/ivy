@@ -144,17 +144,32 @@ export const getConversationForASingleClient = catchAsync(
     const fingerprint = req.userFingerprint;
     let id = req.params.id;
 
+    const page = parseInt(req.query?.page || 1);
+    const limit = parseInt(req.query?.limit || 10000);
+    const skip = (page - 1) * limit;
+
     if (id == "0") {
       id = fingerprint; //TODO has to take care of it
     }
 
-    const chats = await Chat.findOne({ session_id: id }).populate("messages");
+    // const chats = await Chat.findOne({ session_id: id }).populate("messages");
+    const chats = await Message.find({ session_id: id })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const totalMessages = await Message.countDocuments({ session_id: id });
 
     return sendResponse(res, {
       code: 200,
       success: true,
       message: "Chat retrieved successfully",
-      data: chats,
+      data: { messages: chats.reverse() },
+      pagination: {
+        page,
+        limit,
+        total: totalMessages,
+      },
     });
   }
 );

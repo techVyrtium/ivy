@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: process.env.N8N_URL,
-  timeout: 60 * 1000, // 60 seconds / 1 min
+  timeout: 15 * 60 * 1000, // 60 seconds / 1 min *15 / 15 minute
 });
 
 // Get token (you could improve this to be dynamic)

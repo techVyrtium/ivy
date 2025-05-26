@@ -1,0 +1,461 @@
+[
+  {
+    "id": "04-02-03-05-04",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Locación",
+    "Producto": "Locación Interior",
+    "Descripción": "Locación Interior",
+    "usd": 333.444
+  },
+  {
+    "id": "04-02-03-06-01",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Permisos",
+    "Producto": "Permiso Municipal",
+    "Descripción": "Permiso Municipal",
+    "usd": 333.444
+  },
+  {
+    "id": "04-02-03-06-02",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Permisos",
+    "Producto": "Permiso Policial",
+    "Descripción": "Permiso Policial",
+    "usd": 333.444
+  },
+  {
+    "id": "04-02-03-06-03",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Permisos",
+    "Producto": "Permiso de Tránsito",
+    "Descripción": "Permiso de Tránsito",
+    "usd": 333.444
+  },
+  {
+    "id": "04-02-03-06-04",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Permisos",
+    "Producto": "Permiso Drone",
+    "Descripción": "Permiso Drone",
+    "usd": 333.444
+  },
+  {
+    "id": "04-02-03-07-01",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Seguros",
+    "Producto": "Seguro de Equipos",
+    "Descripción": "Seguro de Equipos",
+    "usd": 333.444
+  },
+  {
+    "id": "04-02-03-07-02",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Seguros",
+    "Producto": "Seguro de Personal",
+    "Descripción": "Seguro de Personal",
+    "usd": 333.444
+  },
+  {
+    "id": "04-02-03-07-03",
+    "Servicio": "Prod AV",
+    "Categoría": "Producción",
+    "Tipo": "Seguros",
+    "Producto": "Seguro de Producción",
+    "Descripción": "Seguro de Producción",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-01-01",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Edición",
+    "Producto": "Edición Básica",
+    "Descripción": "Edición Básica - Cortes, transiciones básicas, ajustes de color básicos",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-01-02",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Edición",
+    "Producto": "Edición Intermedia",
+    "Descripción": "Edición Intermedia - Motion graphics básicos, corrección de color, audio mixing",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-01-03",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Edición",
+    "Producto": "Edición Avanzada",
+    "Descripción": "Edición Avanzada - Efectos especiales, motion graphics complejos, grading profesional",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-02-01",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Color Grading",
+    "Producto": "Color Correction",
+    "Descripción": "Color Correction - Ajustes básicos de exposición, contraste, saturación",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-02-02",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Color Grading",
+    "Producto": "Color Grading Básico",
+    "Descripción": "Color Grading Básico - Look creativo, ajustes por escena",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-02-03",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Color Grading",
+    "Producto": "Color Grading Avanzado",
+    "Descripción": "Color Grading Avanzado - Look cinematográfico, mascaras, tracking",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-03-01",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Motion Graphics",
+    "Producto": "Títulos Animados",
+    "Descripción": "Títulos Animados - Textos con animaciones básicas",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-03-02",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Motion Graphics",
+    "Producto": "Lower Thirds",
+    "Descripción": "Lower Thirds - Gráficos informativos animados",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-03-03",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Motion Graphics",
+    "Producto": "Intro/Outro",
+    "Descripción": "Intro/Outro - Animaciones de apertura y cierre",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-03-04",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Motion Graphics",
+    "Producto": "Infografías Animadas",
+    "Descripción": "Infografías Animadas - Visualización de datos animada",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-04-01",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "VFX",
+    "Producto": "Compositing Básico",
+    "Descripción": "Compositing Básico - Green screen, superposiciones simples",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-04-02",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "VFX",
+    "Producto": "Compositing Avanzado",
+    "Descripción": "Compositing Avanzado - Múltiples capas, tracking 3D, efectos complejos",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-04-03",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "VFX",
+    "Producto": "Cleanup",
+    "Descripción": "Cleanup - Remoción de objetos, cables, imperfecciones",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-04-04",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "VFX",
+    "Producto": "Matte Painting",
+    "Descripción": "Matte Painting - Extensión de sets, paisajes digitales",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-05-01",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Audio Post",
+    "Producto": "Mezcla de Audio",
+    "Descripción": "Mezcla de Audio - Balance de niveles, ecualización básica",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-05-02",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Audio Post",
+    "Producto": "Masterización",
+    "Descripción": "Masterización - Procesamiento final para distribución",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-05-03",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Audio Post",
+    "Producto": "Limpieza de Audio",
+    "Descripción": "Limpieza de Audio - Reducción de ruido, clicks, pops",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-05-04",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Audio Post",
+    "Producto": "Foley",
+    "Descripción": "Foley - Efectos de sonido sincronizados",
+    "usd": 333.444
+  },
+  {
+    "id": "04-03-01-05-05",
+    "Servicio": "Prod AV",
+    "Categoría": "Post Producción",
+    "Tipo": "Audio Post",
+    "Producto": "ADR",
+    "Descripción": "ADR - Re-grabación de diálogos",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-01-01",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Investigación",
+    "Producto": "Análisis de Mercado",
+    "Descripción": "Análisis de Mercado",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-01-02",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Investigación",
+    "Producto": "Análisis de Competencia",
+    "Descripción": "Análisis de Competencia",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-01-03",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Investigación",
+    "Producto": "Investigación de Usuario",
+    "Descripción": "Investigación de Usuario",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-02-01",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Posicionamiento",
+    "Producto": "Definición de Propuesta de Valor",
+    "Descripción": "Definición de Propuesta de Valor",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-02-02",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Posicionamiento",
+    "Producto": "Arquitectura de Marca",
+    "Descripción": "Arquitectura de Marca",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-02-03",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Posicionamiento",
+    "Producto": "Personalidad de Marca",
+    "Descripción": "Personalidad de Marca",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-03-01",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Naming",
+    "Producto": "Creación de Nombres",
+    "Descripción": "Creación de Nombres",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-03-02",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Naming",
+    "Producto": "Validación Legal",
+    "Descripción": "Validación Legal",
+    "usd": 333.444
+  },
+  {
+    "id": "01-01-01-03-03",
+    "Servicio": "Branding",
+    "Categoría": "Estrategia",
+    "Tipo": "Naming",
+    "Producto": "Registro de Marca",
+    "Descripción": "Registro de Marca",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-01-01",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Logo",
+    "Producto": "Diseño de Logo",
+    "Descripción": "Diseño de Logo",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-01-02",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Logo",
+    "Producto": "Manual de Uso",
+    "Descripción": "Manual de Uso",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-01-03",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Logo",
+    "Producto": "Variaciones de Logo",
+    "Descripción": "Variaciones de Logo",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-02-01",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Paleta de Colores",
+    "Producto": "Colores Primarios",
+    "Descripción": "Colores Primarios",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-02-02",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Paleta de Colores",
+    "Producto": "Colores Secundarios",
+    "Descripción": "Colores Secundarios",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-02-03",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Paleta de Colores",
+    "Producto": "Especificaciones Técnicas",
+    "Descripción": "Especificaciones Técnicas",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-03-01",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Tipografía",
+    "Producto": "Tipografía Principal",
+    "Descripción": "Tipografía Principal",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-03-02",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Tipografía",
+    "Producto": "Tipografía Secundaria",
+    "Descripción": "Tipografía Secundaria",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-03-03",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Tipografía",
+    "Producto": "Jerarquía Tipográfica",
+    "Descripción": "Jerarquía Tipográfica",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-04-01",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Elementos Gráficos",
+    "Producto": "Iconografía",
+    "Descripción": "Iconografía",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-04-02",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Elementos Gráficos",
+    "Producto": "Patrones",
+    "Descripción": "Patrones",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-04-03",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Elementos Gráficos",
+    "Producto": "Texturas",
+    "Descripción": "Texturas",
+    "usd": 333.444
+  },
+  {
+    "id": "01-02-01-04-04",
+    "Servicio": "Branding",
+    "Categoría": "Identidad Visual",
+    "Tipo": "Elementos Gráficos",
+    "Producto": "Ilustraciones",
+    "Descripción": "Ilustraciones",
+    "usd": 333.444
+  },
+  {
+    "id": "01-03-01-01-01",
+    "Servicio": "Branding",
+    "Categoría": "Aplicaciones",
+    "Tipo": "Papelería",
+    "Producto": "Tarjetas de Presentación",
+    "Descripción": "Tarjetas de Presentación",
+    "usd": 333.444
+  },
+  {
+    "id": "01-03-01-01-02",
+    "Servicio": "Branding",
+    "Categoría": "Aplicaciones",
+    "Tipo": "Papelería",
+    "Producto": "Membrete",
+    "Descripción": "Membrete",
+    "usd": 333.444
+  }
+]
