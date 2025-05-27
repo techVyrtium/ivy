@@ -15,15 +15,7 @@ import generateFingerPrint from "./utilities/generateFingerPrint.js";
 // const app = express();
 // app.use(cors());
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://localhost:3001",
-    "http://localhost:3002",
-    "https://landing-page-vrytium-demo-wjj3.vercel.app/es",
-    "https://landing-page-vrytium-demo-wjj3.vercel.app/en",
-    "https://landing-page-vrytium-demo-wjj3.vercel.app/",
-  ],
+  origin: "*",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: [
