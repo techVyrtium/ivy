@@ -2,9 +2,10 @@ import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema(
   {
-    session_id: { type: String, required: true },
+    // session_id: { type: String, required: true },
     chat_id: {
-      type: mongoose.Schema.Types.ObjectId,
+      // type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.Mixed,
       ref: "Message",
       required: true,
     },

@@ -2,19 +2,24 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: process.env.N8N_URL,
-  timeout: 15 * 60 * 1000, // 60 seconds / 1 min *15 / 15 minute
+  timeout: 15 * 60 * 1000, // 15 minutes
 });
-
-// Get token (you could improve this to be dynamic)
-const getToken = () => process.env.API_TOKEN || "";
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    // Use token from config if provided
+    const token = config.dynamicToken || "";
+
     if (token) {
+      // Fix: Use 'Authorization' header instead of 'authToken'
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     config.headers["Content-Type"] = "application/json";
+
+    // Clean up the custom property to avoid sending it in the request
+    delete config.dynamicToken;
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -26,6 +31,7 @@ axiosInstance.interceptors.response.use(
     console.error("Axios error:", {
       status: error.response?.status,
       message: error.response?.data || error.message,
+      url: error.config?.url,
     });
 
     return Promise.reject({

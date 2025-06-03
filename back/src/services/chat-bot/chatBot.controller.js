@@ -1,14 +1,17 @@
+import { env } from "../../Config/config.js";
 import Chat from "../../models/chat.model.js";
 import { Client } from "../../models/client.model.js";
 import Message from "../../models/message.model.js";
 import axiosInstance from "../../utilities/axiosInstance.js";
 import catchAsync from "../../utilities/catchAsync.js";
 import sendResponse from "../../utilities/sendResponse.js";
+import jwt from "jsonwebtoken";
 
 // question from client
 export const clientAskAgent = catchAsync(async (req, res, next) => {
-  const fingerprint = req.userFingerprint;
   const deviceShortInfo = req.deviceShortInfo;
+  const { sessionId, role, sessionType } = req.token;
+
   const { message, receiver } = req.body || {};
 
   if (!message || typeof message !== "string") {
@@ -16,74 +19,79 @@ export const clientAskAgent = catchAsync(async (req, res, next) => {
   }
 
   // checking if client available
-  const client = await Client.findOne({ session_id: fingerprint }).select(
+  const client = await Client.findOne({ session_id: sessionId }).select(
     "-registrationDate"
   );
 
-  let chat = await Chat.findOne({ session_id: fingerprint });
+  let chat = await Chat.findOne({ session_id: sessionId });
 
   if (!chat) {
     chat = await Chat.create({
-      session_id: fingerprint,
+      session_id: sessionId,
       deviceInfo: deviceShortInfo,
       messages: [],
     });
   }
 
   const newClientMessage = await Message.create({
-    session_id: fingerprint,
     chat_id: chat._id,
     sender: "client",
     receiver: receiver || "ai agent",
     message,
   });
 
-  chat.messages.push(newClientMessage._id); // Add client message to beginning
+  chat.messages.push(newClientMessage._id);
 
   let response;
-  if (receiver === "human agent") {
-    // TODO message has to send human agent using socket.io
-    console.log("Human agent is loading........");
+
+  let jwtToken = "";
+  if (sessionType === "verified") {
+    jwtToken = req.header("Authorization")?.replace("Bearer ", "");
+  } else {
+    const token = { sessionId, role: "user", sessionType: "verified" };
+    jwtToken = jwt.sign(token, env.jwt_secret, { expiresIn: "365d" });
   }
-  // ai agent
-  else {
-    response = await axiosInstance.post("/", {
+
+  const old_messages = await Message.find({ chat_id: chat._id })
+    .sort({ createdAt: -1 })
+    .skip(1)
+    .limit(5)
+    .select("sender message -_id");
+
+  // sending query to ai agent
+  response = await axiosInstance.post(
+    "/",
+    {
       message,
-      sessionId: fingerprint,
+      sessionId: sessionId,
       client,
-    });
-
-    if (!response.data?.output) {
-      return next({ message: "Invalid response from AI agent" });
+      five_prev_messages: old_messages,
+    },
+    {
+      dynamicToken: jwtToken,
     }
+  );
 
-    const newAgentMessage = await Message.create({
-      session_id: fingerprint,
-      chat_id: chat._id,
-      sender: "ai agent",
-      receiver: "client",
-      message: response?.data?.output || null,
-    });
-
-    chat.messages.push(newAgentMessage._id); // Add ai agent's response message to beginning
+  if (!response.data?.output) {
+    return next({ message: "Invalid response from AI agent" });
   }
+
+  const newAgentMessage = await Message.create({
+    chat_id: chat._id,
+    sender: "ai agent",
+    receiver: "client",
+    message: response?.data?.output || null,
+  });
+
+  chat.messages.push(newAgentMessage._id);
 
   await chat.save();
-
-  // return sendResponse(res, {
-  //   code: 200,
-  //   success: true,
-  //   message: "Response from AI agent",
-  //   data: response?.data?.output || null,
-  // });
 
   return sendResponse(res, {
     code: 200,
     success: true,
     message: "Response from AI agent",
     data: {
-      threadId: fingerprint,
-      runId: "",
       response: response?.data?.output || null,
       processingStatus: "success",
       timestamp: null,
@@ -92,79 +100,129 @@ export const clientAskAgent = catchAsync(async (req, res, next) => {
   });
 });
 
-// question from ai/human agent
-export const agentAskClient = catchAsync(async (req, res, next) => {
-  const { sessionId, message, sender } = req.body;
+// get my conversation
+export const getMyConversation = catchAsync(async (req, res, next) => {
+  const token = req.token;
+  const page = parseInt(req.query?.page || 1);
+  const limit = parseInt(req.query?.limit || 10000);
+  const skip = (page - 1) * limit;
+  const id = token.sessionId;
 
-  if (!sessionId || !message || !sender) {
-    return next({
-      message: "sessionId, sender and message are required",
-      code: 400,
+  if (!token?.sessionType || token?.sessionType !== "verified") {
+    return sendResponse(res, {
+      code: 200,
+      success: true,
+      message: "Session is not verified. You will be treated as new user",
+      data: { messages: [] },
+      pagination: {
+        page,
+        limit,
+        total: 0,
+      },
     });
   }
 
-  if (sender !== "ai agent" && sender !== "human agent") {
-    return next({ message: "Sender can only be ai or human agent", code: 400 });
+  const client = await Client.findOne({ session_id: id });
+
+  if (!client) {
+    return sendResponse(res, {
+      code: 404,
+      success: false,
+      message: "Client not found",
+      data: { messages: [] },
+      remove_token: true,
+      pagination: {
+        page,
+        limit,
+        total: 0,
+      },
+    });
   }
 
-  let chat = await Chat.findOne({ session_id: sessionId });
+  const chat = await Chat.findOne({ session_id: id });
 
   if (!chat) {
-    return next({ message: "Chat session not found", code: 404 });
+    return sendResponse(res, {
+      code: 404,
+      success: false,
+      message: "Chat session not found",
+      data: { messages: [] },
+      pagination: {
+        page,
+        limit,
+        total: 0,
+      },
+    });
   }
 
-  const newMessage = await Message.create({
-    session_id: sessionId,
-    chat_id: chat._id,
-    sender: sender,
-    message: message,
-    receiver: "client",
-  });
+  // const chats = await Chat.findOne({ session_id: id }).populate("messages");
 
-  chat.messages.push(newMessage._id);
-  await chat.save();
+  const messages = await Message.find({
+    $or: [
+      { chat_id: chat._id.toString() }, // String version
+      { chat_id: chat._id }, // ObjectId version
+    ],
+  })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
 
-  // TODO socket.io
-  // io.to(sessionId).emit("new-agent-message", {
-  //   message,
-  //   messageId: newMessage._id,
-  // });
+  const totalMessages = await Message.countDocuments({ chat_id: chat._id });
 
   return sendResponse(res, {
     code: 200,
     success: true,
-    message: "Agent's message sent to client",
-    data: newMessage,
+    message: "Chat retrieved successfully",
+    data: { messages: messages.reverse() },
+    pagination: {
+      page,
+      limit,
+      total: totalMessages,
+    },
   });
 });
 
-// chat / all message of a conversation
-export const getConversationForASingleClient = catchAsync(
+// chat / all message of a conversation by session id
+export const getConversationForASingleClientBySessionId = catchAsync(
   async (req, res, next) => {
-    const fingerprint = req.userFingerprint;
-    let id = req.params.id;
+    const token = req.token;
+    const id = req.params.id;
 
     const page = parseInt(req.query?.page || 1);
     const limit = parseInt(req.query?.limit || 10000);
     const skip = (page - 1) * limit;
 
-    if (id == "0") {
-      id = fingerprint; //TODO has to take care of it
+    const chat = await Chat.findOne({ session_id: id });
+
+    if (!chat) {
+      return sendResponse(res, {
+        code: 404,
+        success: false,
+        message: "Chat session not found",
+        data: { messages: [] },
+        pagination: {
+          page,
+          limit,
+          total: 0,
+        },
+      });
     }
 
     // const chats = await Chat.findOne({ session_id: id }).populate("messages");
-    const chats = await Message.find({ session_id: id })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit);
+    const messages = await Message.find({
+      $or: [
+        { chat_id: chat._id.toString() }, // String version
+        { chat_id: chat._id }, // ObjectId version
+      ],
+    });
 
-    const totalMessages = await Message.countDocuments({ session_id: id });
+    const totalMessages = await Message.countDocuments({ chat_id: chat._id });
 
     return sendResponse(res, {
       code: 200,
       success: true,
       message: "Chat retrieved successfully",
-      data: { messages: chats.reverse() },
+      data: { messages: messages.reverse() },
       pagination: {
         page,
         limit,
