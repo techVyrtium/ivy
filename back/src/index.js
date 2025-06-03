@@ -15,7 +15,12 @@ import generateFingerPrint from "./utilities/generateFingerPrint.js";
 // const app = express();
 // app.use(cors());
 const corsOptions = {
-  origin: "*",
+  origin: [
+    "https://ivy-2d-entrega-front-git-main-camilo-vyrtiums-projects.vercel.app",
+    "https://ivy-2d-entrega-front.vercel.app",
+    "http://localhost:3000",
+    "http://localhost:5173"
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: [
