@@ -15,11 +15,7 @@ import generateFingerPrint from "./utilities/generateFingerPrint.js";
 // const app = express();
 // app.use(cors());
 const corsOptions = {
-  origin: [
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "http://localhost:3001",
-  ],
+  origin: "*",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: [
