@@ -129,7 +129,7 @@ export const PolicyCheckBox = ({ payload }) => {
                 }
               `}
             >
-              {isAccepted ? "Continuar" : "Por favor, acepta para continuar"}
+              {isAccepted ? "Continue" : "Please accept to continue"}
             </button>
           </div>
         </div>
@@ -137,8 +137,8 @@ export const PolicyCheckBox = ({ payload }) => {
         {/* Footer */}
         <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800/50 rounded-b-2xl border-t border-gray-100 dark:border-gray-700">
           <p className="text-xs text-gray-500 dark:text-gray-400 text-center leading-relaxed">
-            Tu privacidad es importante para nosotros. Utilizamos tus datos
-            responsablemente y de manera transparente.
+            Your privacy is important to us. We use your data responsibly and
+            transparently.
           </p>
         </div>
       </div>

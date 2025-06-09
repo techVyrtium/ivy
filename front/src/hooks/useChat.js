@@ -1,15 +1,16 @@
 import { useState, useRef, useEffect } from "react";
-import { CLOSING_REGEX } from "@/utils/closingRegex";
-import { useAudioAssistant } from "@/hooks/useAudioAssistant";
-import { sendChatMessage } from "@/services/chatService";
-import { getRoundedTimestamp } from "@/utils/chatUtils";
+import { CLOSING_REGEX } from "../utils/closingRegex";
+import { useAudioAssistant } from "./useAudioAssistant";
+import { sendChatMessage } from "../services/chatService";
+import { getRoundedTimestamp } from "../utils/chatUtils";
 
 export const useChat = () => {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hola 👋, soy Ivy, tu asistente virtual. ¿En qué puedo ayudarte hoy? 😊",
+      content:
+        "Hi, 👋 I'm Ivy, your virtual assistant. How may I help you today?",
       timestamp: getRoundedTimestamp(),
     },
   ]);
@@ -48,8 +49,8 @@ export const useChat = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
-  const sendMessage = async () => {
-    const userText = inputValue.trim();
+  const sendMessage = async (userMessage) => {// for direct call: -> userMessage can be useful 
+    const userText = inputValue.trim() ? inputValue.trim() : userMessage.trim();
 
     if (!userText || isClosed) return;
     setMessages((prev) => [
@@ -61,6 +62,7 @@ export const useChat = () => {
     setProcessingStatus("processing");
     try {
       const data = await sendChatMessage({ userMessage: userText, threadId });
+
       if (data.threadId) setThreadId(data.threadId);
       if (data.error) {
         setMessages((prev) => [
@@ -75,70 +77,84 @@ export const useChat = () => {
         setProcessingStatus(null);
         return;
       }
-      if (data.response) {
-        if (data.processingStatus) {
-          setProcessingStatus(data.processingStatus);
-        }
-        const isClosing = CLOSING_REGEX.some((regex) =>
-          regex.test(data.response)
-        );
-        // Si es cierre y no hay carpeta, y no hemos pedido aún la carpeta
-        if (isClosing && !data.folderUrl && !pendingFolderRequest) {
-          setPendingFolderRequest(true);
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content: data.response,
-              timestamp: data.timestamp || getRoundedTimestamp(),
-            },
-          ]);
-          setIsLoading(true);
-          setProcessingStatus("processing");
-          setTimeout(async () => {
-            setInputValue("");
-            await sendMessageAuto(
-              "Send your farewell to the user in a personalized way and create a folder in Google Drive so they can upload references for the desired product."
-            );
-          }, 500);
-          return;
-        }
-        // Si ya existe la carpeta, procedemos con el cierre normal
-        if (isClosing && data.folderUrl) {
-          setIsClosed(true);
-          setPendingFolderRequest(false);
-          await playAssistantAudio(data.response, messages.length);
-          setMessages((prev) => [
-            ...prev,
-            {
-              role: "assistant",
-              content: data.response,
-              timestamp: data.timestamp || getRoundedTimestamp(),
-            },
-            {
-              role: "system",
-              content: `🔒 The conversation has ended. If you'd like to start a new one, please refresh the page.\n\n📁 A folder has been created in Google Drive with the conversation information: ${data.folderUrl}`,
-              timestamp: getRoundedTimestamp(),
-            },
-          ]);
-          setInputValue("");
-          setIsLoading(false);
-          setProcessingStatus(null);
-          return;
-        }
-        // Si no es cierre, resetea el pendingFolderRequest
-        if (!isClosing) setPendingFolderRequest(false);
-        await playAssistantAudio(data.response, messages.length);
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content: data.response,
-            timestamp: data.timestamp || getRoundedTimestamp(),
-          },
-        ]);
-        playNotificationSound();
-      }
+
+      // if (data.response) {
+      //   if (data.processingStatus) {
+      //     setProcessingStatus(data.processingStatus);
+      //   }
+      //   const isClosing = CLOSING_REGEX.some((regex) =>
+      //     regex.test(data.response)
+      //   );
+      //   // Si es cierre y no hay carpeta, y no hemos pedido aún la carpeta
+      //   if (isClosing && !data.folderUrl && !pendingFolderRequest) {
+      //     setPendingFolderRequest(true);
+      //     setMessages((prev) => [
+      //       ...prev,
+      //       {
+      //         role: "assistant",
+      //         content: data.response,
+      //         timestamp: data.timestamp || getRoundedTimestamp(),
+      //       },
+      //     ]);
+      //     setIsLoading(true);
+      //     setProcessingStatus("processing");
+      //     setTimeout(async () => {
+      //       setInputValue("");
+      //       await sendMessageAuto(
+      //         "Send your farewell to the user in a personalized way and create a folder in Google Drive so they can upload references for the desired product."
+      //       );
+      //     }, 500);
+      //     return;
+      //   }
+      //   // Si ya existe la carpeta, procedemos con el cierre normal
+      //   if (isClosing && data.folderUrl) {
+      //     setIsClosed(true);
+      //     setPendingFolderRequest(false);
+      //     await playAssistantAudio(data.response, messages.length);
+      //     setMessages((prev) => [
+      //       ...prev,
+      //       {
+      //         role: "assistant",
+      //         content: data.response,
+      //         timestamp: data.timestamp || getRoundedTimestamp(),
+      //       },
+      //       {
+      //         role: "system",
+      //         content: `🔒 The conversation has ended. If you'd like to start a new one, please refresh the page.\n\n📁 A folder has been created in Google Drive with the conversation information: ${data.folderUrl}`,
+      //         timestamp: getRoundedTimestamp(),
+      //       },
+      //     ]);
+      //     setInputValue("");
+      //     setIsLoading(false);
+      //     setProcessingStatus(null);
+      //     return;
+      //   }
+      //   // Si no es cierre, resetea el pendingFolderRequest
+      //   if (!isClosing) setPendingFolderRequest(false);
+      //   await playAssistantAudio(data.response, messages.length);
+      //   setMessages((prev) => [
+      //     ...prev,
+      //     {
+      //       role: "assistant",
+      //       content: data.response,
+      //       timestamp: data.timestamp || getRoundedTimestamp(),
+      //     },
+      //   ]);
+      //   playNotificationSound();
+      // }
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: data.response,
+          timestamp: data.timestamp || getRoundedTimestamp(),
+        },
+      ]);
+      setInputValue("");
+      setIsLoading(false);
+      setProcessingStatus(null);
+      // TODO: HAS TO TAKE CARE OF THE ABOVE CODE (COMMENTED AND UNCOMMENTED BOTH)
     } catch (err) {
       setMessages((prev) => [
         ...prev,
