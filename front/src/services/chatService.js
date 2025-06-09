@@ -1,57 +1,76 @@
+// export async function sendChatMessage({ userMessage, threadId }) {
+//   const res = await fetch("/api/chat", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ userMessage, threadId }),
+//   });
+//   return res.json();
+// }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL_BACK;
+import Cookies from "js-cookie";
 
-export async function sendChatMessage({ userMessage, threadId }) {
-  const res = await fetch(
-    `${API_BASE_URL}/ask-to-agent`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userMessage, sessionId: threadId }),
-    }
-  );
-  const data = await res.json();
+// Helper function to get auth token
+export const getAuthToken = () => {
+  return Cookies.get("ivy-auth-token");
+};
 
-  return data.data;
-}
+// Helper function to create headers with auth token
+const createAuthHeaders = () => {
+  const token = getAuthToken();
+  const headers = {
+    "Content-Type": "application/json",
+  };
 
-export async function getConversation(conversationId) {
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  return headers;
+};
+
+export const fetchData = async () => {
   try {
     const res = await fetch(
-      `${API_BASE_URL}/conversation/${conversationId}`
+      `${process.env.API_URL}/api/v1/chat-bot/conversation`,
+      {
+        method: "GET",
+        headers: createAuthHeaders(),
+        credentials: "include", // Include cookies in the request
+      }
     );
 
     if (!res.ok) {
+      const data2 = await res.json();
+
+      // if token available but user not found then remove token
+      if (data2.remove_token) {
+        Cookies.remove("ivy-auth-token");
+      }
+
       console.warn(`API returned status: ${res.status}`);
-      return [];
+      return;
     }
 
     const data = await res.json();
 
-    // Validate data structure before returning
-    if (data && data.data && Array.isArray(data.data.messages)) {
-      // Ensure each message has the required properties
-      return data.data.messages.map((msg) => {
-        if (msg?.sender) {
-          if (msg.sender === "client") {
-            msg.role = "user";
-          } else {
-            msg.role = "assistant";
-          }
-        }
-
-        return {
-          content: msg.message || "",
-          // Preserve other properties
-          ...msg,
-        };
-      });
-    } else {
-      console.warn("Invalid data format received:", data);
-      return [];
-    }
+    return data;
   } catch (error) {
     console.error("Error fetching conversation:", error);
-    return [];
+    // Initialize with empty array on error
   }
+};
+
+export async function sendChatMessage({ userMessage, threadId }) {
+  const res = await fetch(
+    `${process.env.API_URL}/api/v1/chat-bot/ask-to-agent`,
+    {
+      method: "POST",
+      headers: createAuthHeaders(),
+      credentials: "include", // Include cookies in the request
+      body: JSON.stringify({ message: userMessage, sessionId: threadId }),
+    }
+  );
+
+  const data = await res.json();
+  return data.data;
 }
